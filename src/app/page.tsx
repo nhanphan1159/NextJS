@@ -1,116 +1,121 @@
-// import Header from "@/app/Header";
-import Image from "next/image";
+'use client'
+import { roboto, fontSuavity } from '@/app/font/font'
+import { Button } from '@/components/ui/button'
+import imgHeader from '@/app/img/intro-banner.png'
+import imgAbout from '@/app/img/about-banner.png'
 
+import { log } from 'console'
+import Image from 'next/image'
+import { stringify } from 'querystring'
+import { ModeToggle } from '@/components/mode-toggle'
+import Header from '@/components/ui/header'
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* <Header/> */}
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    return (
+        <main>
+            {/* <div className="flex h-[60px] max-w-full justify-between mx-4 text-[40px] items-center">
+                <div className={fontSuavity.className}>Emily</div>
+                <div className="h-full flex flex-col gap-1 relative top-[-8px] left-0">
+                    <p className="w-[23px] h-[4px] ">&#8722;</p>
+                    <p className="w-[23px] h-[4px] ">&#8722;</p>
+                    <p className="w-[23px] h-[4px] ">&#8722;</p>
+                </div>
+            </div> */}
+            <div className="flex flex-row w-full h-full justify-center items-center">
+                <Header />
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+                <div className="flex flex-row justify-around items-end px-[263px] gap-[56px] w-full mb-40">
+                    <div className="flex flex-col gap-[149px] items-start justify-end">
+                        <div className="text-[120px] absolute top-[84px] left-[100]">
+                            <p className={fontSuavity.className}>
+                                Unleash Your Potential
+                            </p>
+                        </div>
+                        <div className="flex flex-col items-start w-[474.74px] h-full gap-8 justify-end">
+                            <h2 className="text-[24px] text-[#694E38]">
+                                Embrace Your Journey
+                            </h2>
+                            <span className="text-[20px] text-[#555555]">
+                                Are you a powerhouse woman with dreams as vast
+                                as the horizon? Ready to turn those dreams into
+                                reality? You're in the right place!
+                            </span>
+                            <label className="border-b border-[black] text-[24px]">
+                                Read More
+                            </label>
+                        </div>
+                    </div>
+                    <div className="w-full h-full">
+                        <Image
+                            className="max-w-[400px] max-h-[550px]"
+                            src={imgHeader}
+                            alt="Picture of the author"
+                        />
+                        <p className="text-[#F3EBEB] rotate-270 absolute top-[250px] right-[75px] text-[60px] font-medium">
+                            HAPPINESS
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col px-60 w-full justify-center items-center">
+                <div className="w-full h-[873px] bg-[#F3EBEB] p-[100px] mb-40">
+                    <div className="flex flex-row justify-center items-center gap-[60px]">
+                        <div>
+                            <Image
+                                className="max-w-[400px] max-h-[773px]"
+                                src={imgAbout}
+                                alt="Picture of the author"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-[30px] items-start">
+                            <div className="text-[128px] font-medium">
+                                <p className={fontSuavity.className}>
+                                    emilywatson.
+                                </p>
+                            </div>
+                            <h2 className="text-[#694E38] uppercase text-[24px] font-light">
+                                Lifestyle Coach and Writer
+                            </h2>
+                            <span className="text-[#555555] text-[24px]  leading-9	 font-extralight">
+                                Hey there, I'm Emily, a passionate entrepreneur,
+                                life coach, and devoted wife. My mission?
+                                Empower women like you to break through
+                                barriers, discover your authentic selves, and
+                                build the life you've always envisioned.
+                            </span>
+                            <label className="border-b border-[black] text-[24px]">
+                                Read More
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full px-20 py-10 h-[324px] flex flex-row mb-40 gap-[100px] justify-around items-start">
+                    <div className="w-full flex flex-col justify-center items-start h-full ">
+                        <div className={fontSuavity.className}>
+                            <h1 className="text-5xl mb-5">
+                                Self Help Tips, Uplifting articles and Quick
+                                Guides
+                            </h1>
+                        </div>
+                        <span className="text-[#694E38] text-[24px] uppercase items-end">
+                            Sign Up for my newsletter and start your day with
+                            joy
+                        </span>
+                    </div>
+                    <div className="flex flex-col justify-center items-center h-full w-full">
+                        <input
+                            className="w-full h-[56px] pt-3 pb-1 border-[1px] border-[#D8D8D8] text-center flex rounded-[8px]"
+                            type="text"
+                            placeholder="Your email address"
+                        />
+                        <Button className="w-full h-[67px] mt-6 bg-[#9B7150]">
+                            <span className="text-[19px] uppercase font-light">
+                                Subscribe now
+                            </span>
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    )
 }
