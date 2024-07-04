@@ -36,9 +36,9 @@ export default function Home() {
                                 Embrace Your Journey
                             </h2>
                             <span className="text-[20px] text-[#555555]">
-                                Are you a powerhouse woman with dreams as vast
+                                {/* Are you a powerhouse woman with dreams as vast
                                 as the horizon? Ready to turn those dreams into
-                                reality? You're in the right place!
+                                reality? You're in the right place! */}
                             </span>
                             <label className="border-b border-[black] text-[24px]">
                                 Read More
@@ -77,11 +77,11 @@ export default function Home() {
                                 Lifestyle Coach and Writer
                             </h2>
                             <span className="text-[#555555] text-[24px]  leading-9	 font-extralight">
-                                Hey there, I'm Emily, a passionate entrepreneur,
-                                life coach, and devoted wife. My mission?
-                                Empower women like you to break through
+                                {/* Hey there, I'm Emily, a passionate
+                                entrepreneur,life coach, and devoted wife. My
+                                mission? Empower women like you to break through
                                 barriers, discover your authentic selves, and
-                                build the life you've always envisioned.
+                                build the life you've always envisioned. */}
                             </span>
                             <label className="border-b border-[black] text-[24px]">
                                 Read More

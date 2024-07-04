@@ -266,7 +266,6 @@ export default function LoginForm() {
                 <div></div>
             )} */}
 
-            <Toaster />
         </div>
     )
 }

@@ -16,8 +16,13 @@ import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema'
 
 import envConfig from '@/config'
 import { redirect } from 'next/navigation'
+import { Toaster } from '@/components/ui/toaster'
+import { ToastAction } from '@/components/ui/toast'
+import { useToast } from '@/components/ui/use-toast'
 
 export default function RegisterForm() {
+    const { toast } = useToast()
+
     // 1. Define your form.
     const form = useForm<RegisterBodyType>({
         resolver: zodResolver(RegisterBody),
@@ -32,22 +37,60 @@ export default function RegisterForm() {
     // 2. Define a submit handler.
     async function onSubmit(values: RegisterBodyType) {
         saveToLocalStorage(values)
-        const result = await fetch(
-            `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/register`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values),
-            }
-        )
-            .then((res) => {
-                if (res.status === 200) {
-                    window.location.href = '/login'
+        try {
+            const result = await fetch(
+                `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/register`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(values),
                 }
+            ).then(async (res) => {
+                const payload = await res.json()
+                const data = {
+                    status: res.status,
+                    payload,
+                }
+                if (res.status === 200) {
+                    // setLogin(!isLogin)
+                    // setModal(!isModal)
+                    // console.log(isLogin)
+                    setTimeout(() => {
+                        window.location.href = '/login'
+                    }, 1000)
+                }
+                if (!res.ok) {
+                    throw data
+                }
+                return data
             })
-            .catch((err) => console.log(err))
+            console.log(result.payload.message)
+            toast({
+                description: result.payload.message,
+            })
+        } catch (error: any) {
+            const errors = error.payload.errors as {
+                field: string
+                message: string
+            }[]
+            const status = error.status as number
+            if (status === 422) {
+                errors.forEach((error) => {
+                    form.setError(error.field as 'email' | 'password', {
+                        type: 'server',
+                        message: error.message,
+                    })
+                })
+            } else {
+                toast({
+                    title: 'Lỗi',
+                    description: error.payload.message,
+                    variant: 'destructive',
+                })
+            }
+        }
     }
 
     function saveToLocalStorage(data: RegisterBodyType) {

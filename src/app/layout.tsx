@@ -4,7 +4,8 @@ import { roboto } from '@/app/font/font'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/ui/header'
-import { ModeToggle } from '@/components/mode-toggle'
+
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -32,6 +33,8 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Toaster />
+
                     <Header />
                     {children}
                 </ThemeProvider>
