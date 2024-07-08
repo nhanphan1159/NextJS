@@ -1,7 +1,14 @@
+'use client'
 import { fontSuavity } from '@/app/font/font'
 import { ModeToggle } from '@/components/mode-toggle'
+import envConfig from '@/config'
 import Link from 'next/link'
 export default function Header() {
+    async function handleLogout() {
+        await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/logout`, {
+            method: 'POST',
+        })
+    }
     return (
         <div className="flex h-[84px] w-full justify-between px-4 text-[40px] items-center border-b-[1px] border-[#000] fixed top-0 flex-row">
             <div className={fontSuavity.className}>
@@ -16,7 +23,9 @@ export default function Header() {
                         <Link href="/register">Register</Link>
                     </li>
                     <li>
-                        <Link href="/">Log out</Link>
+                        <Link href="/" onClick={handleLogout}>
+                            Log out
+                        </Link>
                     </li>
                     <ModeToggle />
                 </ul>

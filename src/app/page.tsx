@@ -4,26 +4,13 @@ import { Button } from '@/components/ui/button'
 import imgHeader from '@/app/img/intro-banner.png'
 import imgAbout from '@/app/img/about-banner.png'
 
-import { log } from 'console'
 import Image from 'next/image'
-import { stringify } from 'querystring'
-import { ModeToggle } from '@/components/mode-toggle'
-import Header from '@/components/ui/header'
+
 
 export default function Home() {
     return (
         <main>
-            {/* <div className="flex h-[60px] max-w-full justify-between mx-4 text-[40px] items-center">
-                <div className={fontSuavity.className}>Emily</div>
-                <div className="h-full flex flex-col gap-1 relative top-[-8px] left-0">
-                    <p className="w-[23px] h-[4px] ">&#8722;</p>
-                    <p className="w-[23px] h-[4px] ">&#8722;</p>
-                    <p className="w-[23px] h-[4px] ">&#8722;</p>
-                </div>
-            </div> */}
             <div className="flex flex-row w-full h-full justify-center items-center">
-                <Header />
-
                 <div className="flex flex-row justify-around items-end px-[263px] gap-[56px] w-full mb-40">
                     <div className="flex flex-col gap-[149px] items-start justify-end">
                         <div className="text-[120px] absolute top-[84px] left-[100]">
@@ -36,9 +23,9 @@ export default function Home() {
                                 Embrace Your Journey
                             </h2>
                             <span className="text-[20px] text-[#555555]">
-                                {/* Are you a powerhouse woman with dreams as vast
+                                Are you a powerhouse woman with dreams as vast
                                 as the horizon? Ready to turn those dreams into
-                                reality? You're in the right place! */}
+                                reality? You're in the right place!
                             </span>
                             <label className="border-b border-[black] text-[24px]">
                                 Read More
@@ -77,11 +64,11 @@ export default function Home() {
                                 Lifestyle Coach and Writer
                             </h2>
                             <span className="text-[#555555] text-[24px]  leading-9	 font-extralight">
-                                {/* Hey there, I'm Emily, a passionate
+                                Hey there, I'm Emily, a passionate
                                 entrepreneur,life coach, and devoted wife. My
                                 mission? Empower women like you to break through
                                 barriers, discover your authentic selves, and
-                                build the life you've always envisioned. */}
+                                build the life you've always envisioned.
                             </span>
                             <label className="border-b border-[black] text-[24px]">
                                 Read More
