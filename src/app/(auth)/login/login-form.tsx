@@ -13,15 +13,16 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoginBody, LoginBodyType } from '@/schemaValidations/auth.schema'
-
 import envConfig from '@/config'
 
 import { useState } from 'react'
 
 import { useToast } from '@/components/ui/use-toast'
+import { useAppContext } from '@/app/AppProvider'
 
 export default function LoginForm() {
     const { toast } = useToast()
+    const {setSessionToken} = useAppContext() 
 
     // 1. Define your form.
     const form = useForm<LoginBodyType>({
@@ -31,6 +32,7 @@ export default function LoginForm() {
             password: '',
         },
     })
+    // console.log(envConfig.NEXT_PUBLIC_API_ENDPOINT)
 
     // 2. Define a submit handler.
     async function onSubmitLogin(values: LoginBodyType) {
@@ -52,14 +54,14 @@ export default function LoginForm() {
                         status: res.status,
                         payload,
                     }
-                    // if (res.status === 200) {
-                    //     // setLogin(!isLogin)
-                    //     // setModal(!isModal)
-                    //     // console.log(isLogin)
-                    //     // setTimeout(() => {
-                    //     //     window.location.href = '/'
-                    //     // }, 3000)
-                    // }
+                    if (res.status === 200) {
+                        // setLogin(!isLogin)
+                        // setModal(!isModal)
+                        // console.log(isLogin)
+                        setTimeout(() => {
+                            window.location.href = '/me'
+                        }, 3000)
+                    }
                     if (!res.ok) {
                         throw data
                     }
@@ -88,7 +90,7 @@ export default function LoginForm() {
                 }
                 return data
             })
-            console.log(resultFromNextServer)
+            setSessionToken(resultFromNextServer.payload.data.token)
         } catch (error: any) {
             const errors = error.payload.errors as {
                 field: string
@@ -157,10 +159,7 @@ export default function LoginForm() {
                             </FormItem>
                         )}
                     />
-                    <Button
-                        variant="outline"
-                        type="submit"
-                    >
+                    <Button variant="outline" type="submit">
                         Log In
                     </Button>
                 </form>

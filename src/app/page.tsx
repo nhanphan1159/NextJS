@@ -3,9 +3,9 @@ import { roboto, fontSuavity } from '@/app/font/font'
 import { Button } from '@/components/ui/button'
 import imgHeader from '@/app/img/intro-banner.png'
 import imgAbout from '@/app/img/about-banner.png'
+import envConfig from '@/config'
 
 import Image from 'next/image'
-
 
 export default function Home() {
     return (

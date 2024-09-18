@@ -6,6 +6,8 @@ import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/ui/header'
 
 import { Toaster } from '@/components/ui/toaster'
+import AppProvider from '@/app/AppProvider'
+import { cookies } from 'next/headers'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -16,6 +18,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+    const cookieStore = cookies()
+  const sessionToken = cookieStore.get('sessionToken')
     return (
         <html lang="en" suppressHydrationWarning>
             {/* <head>
@@ -27,16 +31,18 @@ export default function RootLayout({
                 />
             </head> */}
             <body className={roboto.className}>
+                <Toaster />
+
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <Toaster />
-
                     <Header />
-                    {children}
+                    <AppProvider inititalSessionToken={sessionToken?.value}>
+                        {children}
+                    </AppProvider>
                 </ThemeProvider>
             </body>
         </html>
