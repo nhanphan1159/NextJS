@@ -2,27 +2,30 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+// import { Button } from '@/components/ui/button'
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from '@/components/ui/form'
+// import { Input } from '@/components/ui/input'
 import { LoginBody, LoginBodyType } from '@/schemaValidations/auth.schema'
 import envConfig from '@/config'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Checkbox, Form, Input, Flex } from 'antd'
 
 import { useState } from 'react'
 
 import { useToast } from '@/components/ui/use-toast'
 import { useAppContext } from '@/app/AppProvider'
+import LoginPage from './page'
 
 export default function LoginForm() {
     const { toast } = useToast()
-    const {setSessionToken} = useAppContext() 
+    const { setSessionToken } = useAppContext()
 
     // 1. Define your form.
     const form = useForm<LoginBodyType>({
@@ -104,65 +107,113 @@ export default function LoginForm() {
                         message: error.message,
                     })
                 })
-            } else {
                 toast({
                     title: 'Lỗi',
                     description: error.payload.message,
                     variant: 'destructive',
                 })
             }
+            // } else {
+            //     toast({
+            //         title: 'Lỗi',
+            //         description: error.payload.message,
+            //         variant: 'destructive',
+            //     })
+            // }
         }
     }
+    // const onFinish = (values) => {
+    //   console.log("Success:", values);
+    //   //Can directly call props here
+    // };
+
+    // const onFinishFailed = (errorInfo) => {
+    //   console.log("Failed:", errorInfo);
+    // };
 
     return (
         <div>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmitLogin)}
-                    className="space-y-2 w-96"
+            {/* <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmitLogin)}
+          className="space-y-2 w-96"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input required placeholder="email" type="email" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    placeholder="password"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button variant="outline" type="submit">
+            Log In
+          </Button>
+        </form>
+      </Form> */}
+            <Form
+                name="login"
+                initialValues={{ remember: true }}
+                style={{ maxWidth: 360 }}
+                onFinish={onSubmitLogin}
+            >
+                <Form.Item
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your email!',
+                        }
+                    ]}
                 >
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        required
-                                        placeholder="email"
-                                        type="email"
-                                        {...field}
-                                    />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                    <Input prefix={<UserOutlined />} placeholder="email" />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your Password!',
+                        },
+                    ]}
+                >
+                    <Input
+                        prefix={<LockOutlined />}
+                        type="password"
+                        placeholder="Password"
                     />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        required
-                                        placeholder="password"
-                                        type="password"
-                                        {...field}
-                                    />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button variant="outline" type="submit">
-                        Log In
+                </Form.Item>
+                <Form.Item>
+                    <Button block type="primary" htmlType="submit">
+                        Log in
                     </Button>
-                </form>
+                    or <a href="/register">Register now!</a>
+                </Form.Item>
             </Form>
         </div>
     )

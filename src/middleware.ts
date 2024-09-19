@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const privatePaths = ['/me']
-const authPaths = ['/login', '/register']
  
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -23,5 +21,5 @@ export function middleware(request: NextRequest) {
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher:[...privatePaths, ...authPaths],
+  matcher:['/me','/login', '/register'],
 }

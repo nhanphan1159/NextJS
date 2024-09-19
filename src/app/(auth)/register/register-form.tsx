@@ -2,22 +2,26 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+// import { Button } from '@/components/ui/button'
+// import {
+//     Form,
+//     FormControl,
+//     FormField,
+//     FormItem,
+//     FormLabel,
+//     FormMessage,
+// } from '@/components/ui/form'
+// import { Input } from '@/components/ui/input'
+
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Checkbox, Form, Input, Flex } from 'antd'
+
 import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema'
 
 import envConfig from '@/config'
-import { redirect } from 'next/navigation'
-import { Toaster } from '@/components/ui/toaster'
-import { ToastAction } from '@/components/ui/toast'
+// import { redirect } from 'next/navigation'
+// import { Toaster } from '@/components/ui/toaster'
+// import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
 
 export default function RegisterForm() {
@@ -35,7 +39,7 @@ export default function RegisterForm() {
     })
 
     // 2. Define a submit handler.
-    async function onSubmit(values: RegisterBodyType) {
+    async function onSubmitRegister(values: RegisterBodyType) {
         saveToLocalStorage(values)
         try {
             const result = await fetch(
@@ -83,13 +87,19 @@ export default function RegisterForm() {
                         message: error.message,
                     })
                 })
-            } else {
                 toast({
                     title: 'Lỗi',
-                    description: error.payload.message,
+                    description: 'RegisterFail: Password not same',
                     variant: 'destructive',
                 })
-            }
+            } 
+            // else {
+            //     toast({
+            //         title: 'Lỗi',
+            //         description: error.payload.message,
+            //         variant: 'destructive',
+            //     })
+            // }
         }
     }
 
@@ -116,88 +126,158 @@ export default function RegisterForm() {
     //     localStorage.setItem('confirmPassword', prop[0].target.value)
     // }
     return (
-        <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-2 w-96"
+        // <Form {...form}>
+        //     <form
+        //         onSubmit={form.handleSubmit(onSubmit)}
+        //         className="space-y-2 w-96"
+        //     >
+        //         <FormField
+        //             control={form.control}
+        //             name="name"
+        //             render={({ field }) => (
+        //                 <FormItem>
+        //                     <FormLabel>Name</FormLabel>
+        //                     <FormControl>
+        //                         <Input
+        //                             placeholder="name"
+        //                             type="text"
+        //                             {...field}
+        //                         />
+        //                     </FormControl>
+
+        //                     <FormMessage />
+        //                 </FormItem>
+        //             )}
+        //         />
+        //         <FormField
+        //             control={form.control}
+        //             name="email"
+        //             render={({ field }) => (
+        //                 <FormItem>
+        //                     <FormLabel>Email</FormLabel>
+        //                     <FormControl>
+        //                         <Input
+        //                             required
+        //                             placeholder="email"
+        //                             type="email"
+        //                             {...field}
+        //                         />
+        //                     </FormControl>
+
+        //                     <FormMessage />
+        //                 </FormItem>
+        //             )}
+        //         />
+        //         <FormField
+        //             control={form.control}
+        //             name="password"
+        //             render={({ field }) => (
+        //                 <FormItem>
+        //                     <FormLabel>Password</FormLabel>
+        //                     <FormControl>
+        //                         <Input
+        //                             required
+        //                             placeholder="password"
+        //                             type="password"
+        //                             {...field}
+        //                         />
+        //                     </FormControl>
+
+        //                     <FormMessage />
+        //                 </FormItem>
+        //             )}
+        //         />
+        //         <FormField
+        //             control={form.control}
+        //             name="confirmPassword"
+        //             render={({ field }) => (
+        //                 <FormItem>
+        //                     <FormLabel>Confirm Password</FormLabel>
+        //                     <FormControl>
+        //                         <Input
+        //                             required
+        //                             placeholder="confirmPassword"
+        //                             type="password"
+        //                             {...field}
+        //                         />
+        //                     </FormControl>
+
+        //                     <FormMessage />
+        //                 </FormItem>
+        //             )}
+        //         />
+        //         <Button type="submit">Đăng ký</Button>
+        //     </form>
+        // </Form>
+        <Form
+            name="login"
+            initialValues={{ remember: true }}
+            style={{ maxWidth: 360 }}
+            onFinish={onSubmitRegister}
+        >
+            <Form.Item
+                name="name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your Name!',
+                    },
+                ]}
             >
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="name"
-                                    type="text"
-                                    {...field}
-                                />
-                            </FormControl>
-
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <Input
+                    prefix={<LockOutlined />}
+                    type="name"
+                    placeholder="Name"
                 />
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input
-                                    required
-                                    placeholder="email"
-                                    type="email"
-                                    {...field}
-                                />
-                            </FormControl>
+            </Form.Item>
+            <Form.Item
+                name="email"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your email!',
+                    },
+                ]}
+            >
+                <Input prefix={<UserOutlined />} placeholder="email" />
+            </Form.Item>
 
-                            <FormMessage />
-                        </FormItem>
-                    )}
+            <Form.Item
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your Password!',
+                    },
+                ]}
+            >
+                <Input
+                    prefix={<LockOutlined />}
+                    type="password"
+                    placeholder="Password"
                 />
-                <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input
-                                    required
-                                    placeholder="password"
-                                    type="password"
-                                    {...field}
-                                />
-                            </FormControl>
-
-                            <FormMessage />
-                        </FormItem>
-                    )}
+            </Form.Item>
+            <Form.Item
+                name="confirmPassword"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your confirmPassword!',
+                    },
+                ]}
+            >
+                <Input
+                    prefix={<LockOutlined />}
+                    type="password"
+                    placeholder="Confirm Password"
                 />
-                <FormField
-                    control={form.control}
-                    name="confirmPassword"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Confirm Password</FormLabel>
-                            <FormControl>
-                                <Input
-                                    required
-                                    placeholder="confirmPassword"
-                                    type="password"
-                                    {...field}
-                                />
-                            </FormControl>
-
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit">Đăng ký</Button>
-            </form>
+            </Form.Item>
+            <Form.Item>
+                <Button block type="primary" htmlType="submit">
+                    Register
+                </Button>
+                or <a href="/Login">Login now!</a>
+            </Form.Item>
         </Form>
     )
 }
